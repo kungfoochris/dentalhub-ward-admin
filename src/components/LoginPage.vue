@@ -34,6 +34,14 @@
                   <b-button block variant="custom" type="submit" @click="processLogin">Sign in</b-button>
                 </div>
               </b-form>
+              <div class="row mt-4 justify-content-center">
+                <b-nav pills>
+                  <b-nav-item>About</b-nav-item>
+                  <b-nav-item>Help</b-nav-item>
+                  <b-nav-item>Privacy Policy</b-nav-item>
+                </b-nav>
+              </div>
+              <small class="mt-4">&copy; 2019 | Designed, Developed & Maintained by <a href="https://abhiyantrik.com">Abhiyantrik Technology</a></small>
             </div>
           <!-- </div>
         </div> -->
