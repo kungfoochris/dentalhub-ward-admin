@@ -37,14 +37,17 @@ body{
     font-weight: bold;
   }
 
-  .btn-custom{
+  .btn-custom, .nav-pills .nav-link.active{
     background-color: $active-color;
     color: #fff;
-    border-radius: 15px;
 
     &:hover{
-      background-color: rgba($active-color, 0.8);
+      background-color: rgba($active-color, 0.9);
     }
+  }
+
+  .btn-custom{
+    border-radius: 15px;
   }
 
   .b-toast-custom-success{

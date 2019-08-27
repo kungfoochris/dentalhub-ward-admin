@@ -73,6 +73,10 @@
           }
         }
 
+        .nav{
+          font-size: 0.8em;
+        }
+
         @media screen and (max-width: $mobile-screen){
           position: unset;
           margin-top: 20px;
