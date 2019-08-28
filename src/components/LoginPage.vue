@@ -17,7 +17,7 @@
               </p>
               <b-form @submit.prevent>
                 <b-form-group class="pb-3" label-for="email">
-                  <b-form-input id="email" type="email" v-model="username" placeholder="Email Address"></b-form-input>
+                  <b-form-input id="email" type="text" v-model="username" placeholder="Username "></b-form-input>
                 </b-form-group>
 
                 <b-form-group class="pb-3" label-for="password">
@@ -47,9 +47,8 @@
               <p class="counter">
                 <ICountUp
                 :delay="delay"
-                :endVal="endVal[0]"
+                :endVal="treatment_obj"
                 :options="options"
-                @ready="onReady"
                 />
               </p>
               <small class="counter-label">
@@ -63,9 +62,8 @@
               <p class="counter">
                 <ICountUp
                 :delay="delay"
-                :endVal="endVal[1]"
+                :endVal="cavities_obj"
                 :options="options"
-                @ready="onReady"
                 />
               </p>
               <small class="counter-label">
@@ -79,9 +77,8 @@
               <p class="counter">
                 <ICountUp
                 :delay="delay"
-                :endVal="endVal[2]"
+                :endVal="contacted_obj"
                 :options="options"
-                @ready="onReady"
                 />
               </p>
               <small class="counter-label">
@@ -151,7 +148,9 @@ export default {
       errors: {'auth':''},
       require_error:[],
       delay: 100,
-      endVal: '',
+      treatment_obj:500,
+      cavities_obj:1500,
+      contacted_obj:6000,
       endVal: [500, 1500, 6000],
       options: {
         useEasing: true,
@@ -180,10 +179,11 @@ export default {
       'setToken','setAdminUsername'
     ]),
 
-    onReady: function(instance, CountUp) {
-      const that = this;
-      instance.update(that.arr(endVal));
-    },
+    // onReady: function(instance, CountUp) {
+    //   const that = this;
+    //   instance.update(that.arr(endVal));
+    // },
+    // @ready="onReady"
 
     processLogin(){
       this.require_error=[]
@@ -197,11 +197,9 @@ export default {
         this.$bvToast.show('error-toast');
       }
       else{
-        axios.post('http://104.155.163.124:3000/api/v1/checkuser',{'email':this.$data.username}).then(response=>{
-          console.log(response.data)
-          this.setAdminUsername(response.data.username)
-          var formData = {'username': this.adminusername, 'password': this.$data.password}
-          axios.post('http://104.155.163.124:3000/api/v1/token/obtain',formData)
+        axios.post('http://localhost:3000/api/v1/checkwarduser',{'username':this.$data.username}).then(response=>{
+          var formData = {'username': this.$data.username, 'password': this.$data.password}
+          axios.post('http://localhost:3000/api/v1/token/obtain',formData)
           .then(response => {
             window.localStorage.setItem("token", response.data.token);
             this.setToken(response.data.token);

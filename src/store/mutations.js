@@ -3,6 +3,9 @@ export default{
 	setToken(state, token){
 		state.token = token;
 	},
+	setProfile(state, profile){
+		state.profile = profile;
+	},
 
 	setUsers(state, users){
 		state.users = users;
@@ -47,7 +50,17 @@ export default{
 	},
 	setRole(state, role_obj){
 		state.role_obj = role_obj;
-	}
+	},
+	setLoginVisualization(state,loginvisualization){
+		state.loginvisualization = loginvisualization;
+	},
+
+	setTreatmentBarVisualization(state,treatmentnargraph){
+		state.treatmentnargraph = treatmentnargraph;
+	},
 	
+	setTreatmentTable(state,treatmenttable){
+		state.treatmenttable = treatmenttable;
+	},
 
 }

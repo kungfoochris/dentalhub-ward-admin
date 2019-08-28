@@ -3,6 +3,7 @@ export default{
     'title': '** Dental Hub **',
     'token': window.localStorage.getItem("token"),
     'users': [],
+    'profile':'',
     'successmessage':'',
     'errormessage':'',
     'message':'',
@@ -15,4 +16,7 @@ export default{
     'wards_obj':[],
     'address_obj':'',
     'role_obj':[],
+    'loginvisualization':'',
+    'treatmentnargraph':'',
+    'treatmenttable':'',
 }

@@ -1,7 +1,7 @@
 <template>
 <div id="app" class="app-content">
   <canvas :id="tag"></canvas>
-  <div class="row pr-4">
+  <div class="row pr-4 pt-3">
     <small class="ml-auto"><a href=""><i class="fas fa-file-export mr-1"></i>Export Now</a></small>
   </div>
 </div>
@@ -21,19 +21,19 @@ export default {
   },
   computed: {
     ...mapState([
-      'visualizations','visualizations1'
+      'visualizations','visualizations1','treatmentnargraph','loginvisualization'
     ])
   },
   watch: {
-    visualizations: function(old,n){
-    if(this.visualizations.locationChart){
-          this.createChart(this.tag, this.type);
+    treatmentnargraph: function(old,n){
+    if(this.treatmentnargraph.locationChart){
+          this.createChart();
         }
     },
 
-    visualizations1: function(old,n){
-      if(this.visualizations1.locationChart){
-        this.createChart1(this.tag, this.type);
+    loginvisualization: function(old,n){
+      if(this.loginvisualization.locationChart){
+        this.createChart1();
       }
     }
   },
@@ -41,34 +41,38 @@ export default {
   created(){
     this.listVisualization();
     this.listVisualizationChart();
+    this.listTreatmentBarVisualization();
+    this.listLoginVisualization();
   },
   methods:{
-    ...mapActions(['listVisualization','listVisualizationChart']),
+    ...mapActions(['listVisualization','listVisualizationChart','listTreatmentBarVisualization','listLoginVisualization']),
 
 
-    createChart(chartId, chartType) {
+    createChart() {
       // we read the cleandata here from visualizations in state as shown below
       // and update the arguments in Chart() based on read data.
       //var d = this.state.visualizations.get(this.tag) 
       // var d = this.state.visualizations.get(this.tag) 
       const ctx = document.getElementById('uch');
       // ctx.height = 300;
+      // ctx.height = 385;
+      // ctx.width = 770;
       const _ = new Chart(ctx, {
         // type: chartData.type,
         type: 'bar',
-        data: this.visualizations.locationChart.data,
-        options: this.visualizations.locationChart.options,
+        data: this.treatmentnargraph.locationChart.data,
+        options: this.treatmentnargraph.locationChart.options,
       });
     },
 
-    createChart1(chartId, chartType) { 
+    createChart1() { 
       const ctx = document.getElementById('lch');
       // ctx.height = 300;
       const _ = new Chart(ctx, {
         // type: chartData.type,
         type: 'pie',
-        data: this.visualizations1.locationChart.data,
-        options: this.visualizations1.locationChart.options,
+        data: this.loginvisualization.locationChart.data,
+        options: this.loginvisualization.locationChart.options,
       });
     },
 

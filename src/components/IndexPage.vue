@@ -6,10 +6,10 @@
     <div class="row">
       <div class="col-12">
         <h1>Dashboard</h1>
-        <p>
-          <strong>Ward Number:</strong> 14 <br />
-          <strong>Municipality:</strong> Mangalsen<br />
-          <strong>District:</strong> Accham
+        <p v-if="profile">
+          <strong>Ward Number:</strong> {{profile.location[0]['ward']}} <br />
+          <strong>Municipality:</strong> {{profile.location[0]['municipality']['name']}}<br />
+          <strong>District:</strong> {{profile.location[0]['district']}}
         </p>
       </div>
     </div>
@@ -47,6 +47,9 @@
       >
         <!-- <template slot="S.N." slot-scope="data">
           {{ data.index + 1 + '.' }}
+        </template> -->
+        <!-- <template slot="type" slot-scope="data">
+          {{ row.items.treatmenttable[0] }}
         </template> -->
       </b-table>
       <div class="row pr-4">
@@ -99,7 +102,7 @@
 </template>
 
 <script>
-// import { mapState,mapActions } from 'vuex';
+import { mapState,mapActions } from 'vuex';
 import AppHeader from './Header.vue';
 import Visualization from './Visualization';
 import userChart from '../js/userchart.js';
@@ -113,17 +116,16 @@ export default {
     'app-header': AppHeader,
     'Visualization': Visualization
   },
-  // computed: {
-  //   ...mapState(['token','data'
-  //   ])
-  // },
+  computed: {
+    ...mapState(['token','profile','treatmenttable'
+    ])
+  },
 
-  // created(){
-  //   this.listVisualization().then(() => {
-  //     this.locationChart.data.labels = data.labels
-  //     this.locationChard.data.datasets = data.datasets
-  //   });
-  // },
+  created(){
+    this.listProfile();
+    this.listTreatmentTable();
+  },
+
 
   data() {
     return {
@@ -143,7 +145,7 @@ export default {
       isActive: true,
 
       basicFields: [
-        { key: 'type', label: '', tdClass: 'main-label'},
+        { key: 'type', label: '', tdClass: 'font-weight-bold'},
         { key: 'male', label: 'Male'},
         { key: 'female', label: 'Female'},
         { key: 'child', label: 'Child (< 18Y)'},
@@ -152,13 +154,13 @@ export default {
         { key: 'total', label: 'Total'},
       ],
       basic:[
-        {type: 'Number of Cavities Prevented', male: '50', female: '20', child: '30', adult: '15', senior: '25', total: '70'},
-        {type: 'Contacts', male: '10', female: '30', child: '10', adult: '15', senior: '15', total: '40'},
+        { type: this.$store.state.treatmenttable.cavities_prevented[0], male: this.$store.state.treatmenttable.cavities_prevented[1], female: this.$store.state.treatmenttable.cavities_prevented[2], child: this.$store.state.treatmenttable.cavities_prevented[3], adult: this.$store.state.treatmenttable.cavities_prevented[4], senior: this.$store.state.treatmenttable.cavities_prevented[5], total: '70'},
+        { type: this.$store.state.treatmenttable.contact[0], male: this.$store.state.treatmenttable.contact[1], female: this.$store.state.treatmenttable.contact[2], child: this.$store.state.treatmenttable.contact[3], adult: this.$store.state.treatmenttable.contact[4], senior: this.$store.state.treatmenttable.contact[5], total: '40'},
 
       ],
 
       treatmentFields: [
-        { key: 'type', label: '', tdClass: 'main-label'},
+        { key: 'type', label: '', tdClass: 'font-weight-bold'},
         { key: 'male', label: 'Male'},
         { key: 'female', label: 'Female'},
         { key: 'child', label: 'Child (< 18Y)'},
@@ -176,7 +178,7 @@ export default {
       ],
 
       strategicFields: [
-        { key: 'type', label: '', tdClass: 'main-label'},
+        { key: 'type', label: '', tdClass: 'font-weight-bold'},
         { key: 'male', label: 'Male'},
         { key: 'female', label: 'Female'},
         { key: 'child', label: 'Child (< 18Y)'},
@@ -194,7 +196,7 @@ export default {
   },
 
   methods:{
-    // ...mapActions(['setToken']),
+    ...mapActions(['listProfile','listTreatmentTable']),
 
 
   }

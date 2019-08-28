@@ -8,23 +8,42 @@
 </template>
 
 <script>
+import { mapState,mapActions } from 'vuex';
 export default {
   name: "LoginVisualization",
   props:["cleanData","tag", "type"],
   components:{
   },
-  mounted: function(){
-      this.createChart(this.tag, this.cleanData);
+  // mounted: function(){
+  //   this.createChart(this.tag);
+  // },
+
+  computed: {
+    ...mapState(['loginvisualization'])
   },
+
+  watch: {
+    loginvisualization: function(){
+      if(this.loginvisualization.locationChart){
+        this.createChart();
+      }
+    },
+  },
+
+  created(){
+    this.listLoginVisualization();
+  },
+
   methods:{
-    createChart(chartId, chartData) {
+    ...mapActions(['listLoginVisualization']),
+    createChart() {
       const ctx = document.getElementById(this.tag);
       ctx.height = 385;
       ctx.width = 770;
       const _ = new Chart(ctx, {
-        type: chartData.type,
-        data: chartData.data,
-        options: chartData.options,
+        type: 'pie',
+        data: this.loginvisualization.locationChart.data,
+        options: this.loginvisualization.locationChart.options,
       });
     }
   },
