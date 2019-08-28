@@ -17,84 +17,105 @@
     <div class="row mt-4">
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
+          <h3 class="mb-3">Bar graph of basic data</h3>
           <Visualization :tag="uch" :type="type1" :clean-data="userChart"></Visualization>
         </div>
       </div>
 
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
+          <h3 class="mb-3">Bar graph of treatment data</h3>
           <Visualization :tag="uch" :type="type1" :clean-data="userChart"></Visualization>
         </div>
       </div>
 
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
+          <h3 class="mb-3">Pie chart of contacts by settings</h3>
           <Visualization :tag="lch" :type="type2" :clean-data="locationChart"></Visualization>
         </div>
       </div>
     </div>
 
-    <div class="row mt-4 text-center table-area card shadow">
-      <h3>Basic Data</h3>
-      <b-table
-      id="user-table"
-      show-empty
-      :items="basic"
-      :fields="basicFields"
-      bordered
-      responsive
-      hover
-      >
-        <!-- <template slot="S.N." slot-scope="data">
-          {{ data.index + 1 + '.' }}
-        </template> -->
-        <!-- <template slot="type" slot-scope="data">
-          {{ row.items.treatmenttable[0] }}
-        </template> -->
-      </b-table>
-      <div class="row pr-4">
-        <small class="ml-auto"><a href=""><i class="fas fa-file-export mr-1"></i>Export Now</a></small>
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card shadow">
+          <h3 class="mb-3">Line graph</h3>
+          <Visualization :tag="uch" :type="type1" :clean-data="userChart"></Visualization>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4 text-center">
+      <div class="col-12">
+        <div class="card shadow">
+          <h3>Basic Data</h3>
+          <b-table
+          id="user-table"
+          show-empty
+          :items="basic"
+          :fields="basicFields"
+          bordered
+          responsive
+          hover
+          >
+              <!-- <template slot="S.N." slot-scope="data">
+              {{ data.index + 1 + '.' }}
+            </template> -->
+          </b-table>
+          <div class="row pr-4">
+            <small class="ml-auto"><a href=""><i class="fas fa-file-export mr-1"></i>Export Now</a></small>
+          </div>
+        </div>
       </div>
     </div>
 
 
-    <div class="row mt-4 text-center table-area card shadow">
-      <h3>Treatments</h3>
-      <b-table
-      id="user-table"
-      show-empty
-      :items="treatment"
-      :fields="treatmentFields"
-      bordered
-      responsive
-      hover
-      >
-        <!-- <template slot="S.N." slot-scope="data">
-          {{ data.index + 1 + '.' }}
-        </template> -->
-      </b-table>
-      <div class="row pr-4">
-        <small class="ml-auto"><a href=""><i class="fas fa-file-export mr-1"></i>Export Now</a></small>
+    <div class="row mt-4 text-center">
+      <div class="col-12">
+        <div class="card shadow">
+          <h3>Treatments</h3>
+          <b-table
+          id="user-table"
+          show-empty
+          :items="treatment"
+          :fields="treatmentFields"
+          bordered
+          responsive
+          hover
+          >
+              <!-- <template slot="S.N." slot-scope="data">
+              {{ data.index + 1 + '.' }}
+            </template> -->
+          </b-table>
+          <div class="row pr-4">
+            <small class="ml-auto"><a href=""><i class="fas fa-file-export mr-1"></i>Export Now</a></small>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="row mt-4 text-center table-area card shadow">
-      <h3>Strategic Data</h3>
-      <b-table
-      id="user-table"
-      show-empty
-      :items="strategic"
-      :fields="strategicFields"
-      bordered
-      responsive
-      hover
-      >
-        <!-- <template slot="S.N." slot-scope="data">
-          {{ data.index + 1 + '.' }}
-        </template> -->
-      </b-table>
-      <div class="row pr-4">
-        <small class="ml-auto"><a href=""><i class="fas fa-file-export mr-1"></i>Export Now</a></small>
+    <div class="row mt-4 text-center">
+      <div class="col-12">
+        <div class="card shadow">
+          <h3>Strategic Data</h3>
+          <b-table
+          id="user-table"
+          show-empty
+          :items="strategic"
+          :fields="strategicFields"
+          bordered
+          responsive
+          hover
+          >
+                <!-- <template slot="S.N." slot-scope="data">
+                {{ data.index + 1 + '.' }}
+              </template> -->
+            </b-table>
+            <div class="row pr-4">
+              <small class="ml-auto"><a href=""><i class="fas fa-file-export mr-1"></i>Export Now</a></small>
+            </div>
+        </div>
       </div>
     </div>
   </div>

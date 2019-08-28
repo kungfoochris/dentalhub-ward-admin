@@ -1,9 +1,9 @@
 @import "./style";
 // @import "./authentication";
 
-#app{
-  height: 100vh;
-}
+// #app{
+//   height: 100vh;
+// }
 
 .contents{
   padding-top: 20px !important;
@@ -25,6 +25,22 @@
         width: 770px !important;
         height: 385px !important;
         display: block;
+      }
+    }
+
+    .static-card{
+      min-height: 85vh;
+      height: 85vh;
+      overflow-y: auto;
+    }
+
+    .about-card{
+
+      ul{
+
+        li{
+          list-style: none;
+        }
       }
     }
 
@@ -55,6 +71,10 @@
           &::placeholder{
             font-size: 16px;
           }
+        }
+
+        .nav{
+          font-size: 0.8em;
         }
 
         @media screen and (max-width: $mobile-screen){
