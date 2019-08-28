@@ -17,19 +17,31 @@
     <div class="row mt-4">
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
+          <h3 class="mb-3">Bar graph of basic data</h3>
           <Visualization :tag="uch" :type="type1" :clean-data="userChart"></Visualization>
         </div>
       </div>
 
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
+          <h3 class="mb-3">Bar graph of treatment data</h3>
           <Visualization :tag="uch" :type="type1" :clean-data="userChart"></Visualization>
         </div>
       </div>
 
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
+          <h3 class="mb-3">Pie chart of contacts by settings</h3>
           <Visualization :tag="lch" :type="type2" :clean-data="locationChart"></Visualization>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card shadow">
+          <h3 class="mb-3">Line graph</h3>
+          <Visualization :tag="uch" :type="type1" :clean-data="userChart"></Visualization>
         </div>
       </div>
     </div>
