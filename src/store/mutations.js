@@ -30,8 +30,8 @@ export default{
 	setActivity(state, activities){
 		state.activities = activities;
 	},
-	setVisualization(state, visualizations){
-		state.visualizations = visualizations;
+	setGenderChart(state, genderchart){
+		state.genderchart = genderchart;
 	},
 	setVisualization1(state, visualizations1){
 		state.visualizations1 = visualizations1;
@@ -61,6 +61,18 @@ export default{
 	
 	setTreatmentTable(state,treatmenttable){
 		state.treatmenttable = treatmenttable;
+	},
+
+	setBasicTable(state, basic_table){
+		state.basic_table = basic_table;
+	},
+
+	setWardSettingGraphs(state, wardsettingsgraph){
+		state.wardsettingsgraph = wardsettingsgraph;
+	},
+
+	setWardTreatmentGraphs(state, wardtreatmentsgraph){
+		state.wardtreatmentsgraph = wardtreatmentsgraph;
 	},
 
 }

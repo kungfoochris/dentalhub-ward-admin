@@ -4,7 +4,7 @@
       <b-img src="/dentallogo.png" fluid class="align-self-center mb-4"></b-img>
       <b-form @submit.prevent>
         <b-form-group class="pb-3" label-for="email">
-          <b-form-input id="email" type="email" v-model="username" placeholder="Email Address"></b-form-input>
+          <b-form-input id="email" type="text" v-model="username" placeholder="Username "></b-form-input>
         </b-form-group>
 
         <b-form-group class="pb-3" label-for="password">
@@ -95,9 +95,8 @@ export default {
         this.$bvToast.show('error-toast');
       }
       else{
-        axios.post('http://104.155.163.124:6061/api/v1/checkuser',{'email':this.$data.username}).then(response=>{
-          this.setAdminUsername(response.data.username)
-          var formData = {'username': this.adminusername, 'password': this.$data.password}
+        axios.post('http://104.155.163.124:6061/api/v1/checkwarduser',{'username':this.$data.username}).then(response=>{
+          var formData = {'username': this.$data.username, 'password': this.$data.password}
           axios.post('http://104.155.163.124:6061/api/v1/token/obtain',formData)
           .then(response => {
             window.localStorage.setItem("token", response.data.token);

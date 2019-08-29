@@ -7,13 +7,13 @@
       <div class="col-12">
         <h1>Settings</h1>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed rhoncus varius aliquam...
+           Settings for Dental Hub Ward Admin
         </p>
       </div>
     </div>
 
     <div class="row mt-4">
-      <div class="col-sm-12 col-md-12 col-lg-6">
+      <div class="col-12">
         <b-form class="card shadow">
           <h3 class="pb-3">Change Password</h3>
           <b-form-input type="password" class="mb-3" v-model="old_password" placeholder="Old Password"></b-form-input>
@@ -21,16 +21,6 @@
           <b-form-input type="password" class="mb-3" v-model="confirm_password" placeholder="Confirm Password"></b-form-input>
 
           <b-button variant="custom" @click="changePassword">Change Password</b-button>
-        </b-form>
-      </div>
-
-      <div class="col-sm-12 col-md-12 col-lg-6">
-        <b-form class="card shadow">
-          <h3 class="pb-3">Update Logo</h3>
-          <!-- <b-form-input type="password" class="mb-3" placeholder="Old Password"></b-form-input> -->
-          <b-form-file class="mb-3" placeholder="Choose a file..." drop-placeholder="Drop file here..."></b-form-file>
-
-          <b-button variant="custom" @click="$bvToast.show('success-toast')">Update Logo</b-button>
         </b-form>
       </div>
     </div>
@@ -50,6 +40,13 @@
       </div>
       <div v-if="errors.confirm_password">
         <p>{{ errors.confirm_password }}</p>
+      </div>
+
+      <div v-if="errors.password_error">
+        <p>{{ errors.password_error }}</p>
+      </div>
+      <div v-if="errors.password_length">
+        <p>{{ errors.password_length }}</p>
       </div>
     </b-toast>
 
@@ -91,6 +88,8 @@ export default {
       old_password: '',
       new_password: '',
       confirm_password:'',
+      password_error:'',
+      password_length:'',
       errors:[],
     }
   },
@@ -105,10 +104,17 @@ export default {
       }else if(this.new_password == ''){
         this.errors['new_password']="New Password required."
         this.$bvToast.show('error-toast');
+      }else if (this.new_password.length<8){
+        this.errors['password_length']="Password must be at least 8 Character length."
+        this.$bvToast.show('error-toast');
       }else if(this.confirm_password == ''){
         this.errors['confirm_password'] = "Confirm Password required."
         this.$bvToast.show('error-toast');
-      }else(
+      }else if(this.new_password!=this.confirm_password){
+        this.errors['password_error'] = "Password do not match."
+        this.$bvToast.show('error-toast');
+      }
+      else(
         this.$store.dispatch("changePassword", {
           'old_password': this.old_password,
           'new_password':this.new_password ,
@@ -116,15 +122,15 @@ export default {
         }).then(() => {
           if(this.successmessage=='success'){
             this.$bvToast.show('success-toast');
+            this.old_password = '';
+            this.new_password = '';
+            this.confirm_password = '';
           }else if(this.errormessage=='errormessage'){
             this.$bvToast.show('error-toast');
 
           }
         })
         )
-      this.old_password = '';
-      this.new_password = '';
-      this.confirm_password = '';
     },
 
   }

@@ -11,7 +11,7 @@
 import { mapState,mapActions } from 'vuex';
 export default {
   name: "Visualization",
-  props:["cleanData","tag","tagone","type","typeone"],
+  props:["tag"],
   components:{
   },
   mounted: function(){
@@ -21,60 +21,73 @@ export default {
   },
   computed: {
     ...mapState([
-      'visualizations','visualizations1','treatmentnargraph','loginvisualization'
+      'genderchart','wardsettingsgraph','wardtreatmentsgraph'
     ])
   },
   watch: {
-    treatmentnargraph: function(old,n){
-    if(this.treatmentnargraph.locationChart){
-          this.createChart();
+    wardtreatmentsgraph: function(){
+    if(this.wardtreatmentsgraph.locationChart){
+          this.createTreatmentChart();
         }
     },
 
-    loginvisualization: function(old,n){
-      if(this.loginvisualization.locationChart){
-        this.createChart1();
+    wardsettingsgraph: function(){
+      if(this.wardsettingsgraph.locationChart){
+        this.createWardSettingGraph();
+      }
+    },
+
+    genderchart: function(){
+      if(this.genderchart.locationChart){
+        this.createGenderChart();
       }
     }
   },
 
   created(){
-    this.listVisualization();
-    this.listVisualizationChart();
-    this.listTreatmentBarVisualization();
-    this.listLoginVisualization();
+    this.listGenderChart();
+    this.listWardSettingGraphs();
+    this.listWardTreatmentGraphs();
+    // this.listVisualizationChart();
+    // this.listTreatmentBarVisualization();
+    // this.listLoginVisualization();
   },
   methods:{
-    ...mapActions(['listVisualization','listVisualizationChart','listTreatmentBarVisualization','listLoginVisualization']),
+    ...mapActions(['listGenderChart','listWardSettingGraphs','listWardTreatmentGraphs']),
 
-
-    createChart() {
-      // we read the cleandata here from visualizations in state as shown below
-      // and update the arguments in Chart() based on read data.
-      //var d = this.state.visualizations.get(this.tag) 
-      // var d = this.state.visualizations.get(this.tag) 
-      const ctx = document.getElementById('uch');
+    createGenderChart() { 
+      const ctx = document.getElementById('genderbargraph');
       // ctx.height = 300;
-      // ctx.height = 385;
-      // ctx.width = 770;
       const _ = new Chart(ctx, {
         // type: chartData.type,
         type: 'bar',
-        data: this.treatmentnargraph.locationChart.data,
-        options: this.treatmentnargraph.locationChart.options,
+        data: this.genderchart.locationChart.data,
+        options: this.genderchart.locationChart.options,
       });
     },
 
-    createChart1() { 
+    createWardSettingGraph() { 
       const ctx = document.getElementById('lch');
       // ctx.height = 300;
       const _ = new Chart(ctx, {
         // type: chartData.type,
         type: 'pie',
-        data: this.loginvisualization.locationChart.data,
-        options: this.loginvisualization.locationChart.options,
+        data: this.wardsettingsgraph.locationChart.data,
+        options: this.wardsettingsgraph.locationChart.options,
       });
     },
+
+    createTreatmentChart() { 
+      const ctx = document.getElementById('treatmentbargraph');
+      // ctx.height = 300;
+      const _ = new Chart(ctx, {
+        // type: chartData.type,
+        type: 'bar',
+        data: this.wardtreatmentsgraph.locationChart.data,
+        options: this.wardtreatmentsgraph.locationChart.options,
+      });
+    },
+
 
     // ExportData(){
     //   this.$store.dispatch("exportData", {})

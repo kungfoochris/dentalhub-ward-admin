@@ -4,13 +4,13 @@ export default {
     listProfile({commit}){
         axios.defaults.headers.common['authorization'] = 'JWT '+ this.state.token
         return axios
-          .get('http://localhost:3000/api/v1/profile', {})
+          .get('http://104.155.163.124:6061/api/v1/profile', {})
           .then(response => {
               commit('setProfile',response.data)
           })
           .catch(error=>{
             if (error.response.status==401){
-              window.localhost.replace("/logout");
+              window.reload("/logout");
             }
           })
       },
@@ -18,7 +18,7 @@ export default {
       updateProfile({state,commit}, updateprofile){
         axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
         return axios
-        .put('http://localhost:3000/api/v1/profile/update', updateprofile)
+        .put('http://104.155.163.124:6061/api/v1/profile/update', updateprofile)
         .then(response => {
           commit("setSuccessMessage",'success');
           state.profile.push(response.data)
@@ -34,7 +34,7 @@ export default {
       listUsers({commit}){
         axios.defaults.headers.common['authorization'] = 'JWT '+ this.state.token
         return axios
-          .get('http://localhost:3000/api/v1/users', {})
+          .get('http://104.155.163.124:6061/api/v1/users', {})
           .then(response => {
               commit('setUsers',response.data);
           })
@@ -43,7 +43,7 @@ export default {
       createUser({state,commit}, user_obj){
         axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
         return axios
-        .post('http://localhost:3000/api/v1/users', user_obj)
+        .post('http://104.155.163.124:6061/api/v1/users', user_obj)
         .then(response => {
           if(response.status==200){
             commit("setSuccessMessage",'success')
@@ -62,7 +62,7 @@ export default {
       updateUser({state,commit}, user_obj){
         axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
         return axios
-        .put('http://localhost:3000/api/v1/users/'+user_obj.id, user_obj)
+        .put('http://104.155.163.124:6061/api/v1/users/'+user_obj.id, user_obj)
         .then(response => {
           if(response.status==200){
             commit("setSuccessMessage",'success')
@@ -80,7 +80,7 @@ export default {
       deleteUser({state,commit},user_id){
         axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
         return axios
-        .delete('http://localhost:3000/api/v1/users/'+user_id)
+        .delete('http://104.155.163.124:6061/api/v1/users/'+user_id)
         .then(response => {
           if(response.status==204){
             commit("setSuccessMessage",'success')
@@ -92,7 +92,7 @@ export default {
       listGeography({commit}){
         axios.defaults.headers.common['authorization'] = 'JWT '+ this.state.token
         return axios
-        .get('http://localhost:3000/api/v1/geography', {})
+        .get('http://104.155.163.124:6061/api/v1/geography', {})
         .then(response => {
           commit('setGeography',response.data);
         })
@@ -101,7 +101,7 @@ export default {
       createGeography({state,commit}, geography_obj){
         axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
         return axios
-        .post('http://localhost:3000/api/v1/geography', geography_obj)
+        .post('http://104.155.163.124:6061/api/v1/geography', geography_obj)
         .then(response => {
           commit("setSuccessMessage",'success')
           state.geography.push(response.data);
@@ -117,7 +117,7 @@ export default {
       updateGeography({state,commit}, geography_obj){
         axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
         return axios
-        .put('http://localhost:3000/api/v1/geography/'+ geography_obj.id, geography_obj)
+        .put('http://104.155.163.124:6061/api/v1/geography/'+ geography_obj.id, geography_obj)
         .then(response => {
           commit("setSuccessMessage",'success')
           state.geography.push(response.data);
@@ -133,7 +133,7 @@ export default {
       deleteGeography({state,commit},geography_id){
         axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
         return axios
-        .delete('http://localhost:3000/api/v1/geography/'+geography_id)
+        .delete('http://104.155.163.124:6061/api/v1/geography/'+geography_id)
         .then(response => {
           if(response.status==204){
             commit("setSuccessMessage",'success')
@@ -145,7 +145,7 @@ export default {
       listActivity({commit}){
         axios.defaults.headers.common['authorization'] = 'JWT '+ this.state.token
         return axios
-        .get('http://localhost:3000/api/v1/activities', {})
+        .get('http://104.155.163.124:6061/api/v1/activities', {})
         .then(response => {
           commit('setActivity',response.data);
         })
@@ -154,7 +154,7 @@ export default {
       createActivity({state,commit}, activity_obj){
         axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
         return axios
-        .post('http://localhost:3000/api/v1/activities', activity_obj)
+        .post('http://104.155.163.124:6061/api/v1/activities', activity_obj)
         .then(response => {
           commit("setSuccessMessage",'success')
           state.activities.push(response.data);
@@ -170,7 +170,7 @@ export default {
       UpdateActivity({state,commit}, activity_obj){
         axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
         return axios
-        .put('http://localhost:3000/api/v1/activities/'+activity_obj.id, activity_obj)
+        .put('http://104.155.163.124:6061/api/v1/activities/'+activity_obj.id, activity_obj)
         .then(response => {
           commit("setSuccessMessage",'success')
           state.activities.push(response.data);
@@ -186,7 +186,7 @@ export default {
       deleteActivity({state,commit},activity_id){
         axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
         return axios
-        .delete('http://localhost:3000/api/v1/activities/'+activity_id)
+        .delete('http://104.155.163.124:6061/api/v1/activities/'+activity_id)
         .then(response => {
           if(response.status==204){
             commit("setSuccessMessage",'success')
@@ -198,7 +198,7 @@ export default {
       changePassword({commit}, password_obj){
         axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
         return axios
-        .post('http://localhost:3000/api/v1/users/changepassword', password_obj)
+        .post('http://104.155.163.124:6061/api/v1/users/changepassword', password_obj)
         .then(response => {
           if(response.status==200){
           commit("setSuccessMessage",'success');
@@ -213,13 +213,13 @@ export default {
       },
 
 
-      listVisualization({commit}){
+      listGenderChart({commit}){
         axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
         return axios
-        .get('http://localhost:3000/api/v1/visualization/locations ',)
+        .get('http://104.155.163.124:6061/api/v1/wardvisualization',)
         .then(response => {
           if(response.status==200){
-          commit("setVisualization",response.data);
+          commit("setGenderChart",response.data);
           }
       })
     },
@@ -227,7 +227,7 @@ export default {
     listVisualizationChart({commit}){
       axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
       return axios
-      .get('http://localhost:3000/api/v1/visualizations ',)
+      .get('http://104.155.163.124:6061/api/v1/visualizations ',)
       .then(response => {
         if(response.status==200){
           commit("setVisualization1",response.data);
@@ -237,7 +237,7 @@ export default {
 
     listAddress({commit}){
       return axios
-      .get('http://localhost:3000/api/v1/addresses ',)
+      .get('http://104.155.163.124:6061/api/v1/addresses ',)
       .then(response => {
         if(response.status==200){
           commit("setAddresses",response.data);
@@ -247,7 +247,7 @@ export default {
 
     listRole({commit}){
       return axios
-      .get('http://localhost:3000/api/v1/roles ',)
+      .get('http://104.155.163.124:6061/api/v1/roles ',)
       .then(response => {
         if(response.status==200){
           commit("setRole",response.data);
@@ -257,7 +257,7 @@ export default {
 
     listLoginVisualization({commit}){
       return axios
-      .get('http://localhost:3000/api/v1/loginvisualization ',)
+      .get('http://104.155.163.124:6061/api/v1/loginvisualization ',)
       .then(response => {
         if(response.status==200){
           commit("setLoginVisualization",response.data);
@@ -268,7 +268,7 @@ export default {
     listTreatmentBarVisualization({commit}){
       axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
       return axios
-      .get('http://localhost:3000/api/v1/treatmentnargraph ',)
+      .get('http://104.155.163.124:6061/api/v1/treatmentnargraph ',)
       .then(response => {
         if(response.status==200){
           commit("setTreatmentBarVisualization",response.data);
@@ -279,7 +279,7 @@ export default {
     listTreatmentTable({commit}){
       axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
       return axios
-      .get('http://localhost:3000/api/v1/treatment ',)
+      .get('http://104.155.163.124:6061/api/v1/wardtreatmenttablevisualizaation',)
       .then(response => {
         if(response.status==200){
           commit("setTreatmentTable",response.data);
@@ -288,10 +288,49 @@ export default {
     },
 
 
+    listBasicTable({commit}){
+      axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
+      return axios
+      .get('http://104.155.163.124:6061/api/v1/wardtablevisualization',)
+      .then(response => {
+        if(response.status==200){
+          commit("setBasicTable",response.data);
+        }
+      })
+    },
+
+    listWardSettingGraphs({commit}){
+      axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
+      return axios
+      .get('http://104.155.163.124:6061/api/v1/wardsettingsgraph',)
+      .then(response => {
+        if(response.status==200){
+          commit("setWardSettingGraphs",response.data);
+        }
+      })
+    },
+
+
+    listWardTreatmentGraphs({commit}){
+      axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
+      return axios
+      .get('http://104.155.163.124:6061/api/v1/wardtreatmentgraph',)
+      .then(response => {
+        if(response.status==200){
+          commit("setWardTreatmentGraphs",response.data);
+        }
+      })
+    },
+
+
+
+    
+
+
     // exportData(){
     //   axios.defaults.headers.common['authorization']  = 'JWT ' + this.state.token
     //   return axios
-    //   .get('http://localhost:3000/api/v1/bargraphdata',)
+    //   .get('http://104.155.163.124:6061/api/v1/bargraphdata',)
     //   .then(response => {
     //     if(response.status==200){
           

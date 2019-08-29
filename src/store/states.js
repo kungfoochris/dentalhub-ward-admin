@@ -9,7 +9,7 @@ export default{
     'message':'',
     'geography': [],
     'activities': [],
-    'visualizations':'',
+    'genderchart':'',
     'visualizations1':'',
     'user_obj':'',
     'adminusername':'',
@@ -19,4 +19,7 @@ export default{
     'loginvisualization':'',
     'treatmentnargraph':'',
     'treatmenttable':'',
+    'basic_table':'',
+    'wardsettingsgraph':'',
+    'wardtreatmentsgraph':'',
 }
