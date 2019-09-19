@@ -2,6 +2,7 @@
 <div id="app" class="d-flex align-content-center flex-wrap">
     <div class="card shadow text-center login-card" data-aos="fade-right" data-aos-duration="3200">
       <b-img src="/dentallogo.png" fluid class="align-self-center mb-4"></b-img>
+      <h4 class="mb-4 text-success">Login as Ward Admin to continue</h4>
       <b-form @submit.prevent>
         <b-form-group class="pb-3" label-for="email">
           <b-form-input id="email" type="text" v-model="username" placeholder="Username "></b-form-input>
