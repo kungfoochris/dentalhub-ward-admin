@@ -6,9 +6,9 @@
     <div class="row">
       <div class="col-12">
         <h1>Dashboard</h1>
-        <p v-if="profile">
+        <p v-if="profile.location">
           <strong>Ward Number:</strong> {{profile.location[0]['ward']}} <br />
-          <strong>Municipality:</strong> {{profile.location[0]['municipality']}}<br />
+          <strong>Municipality:</strong> {{profile.location[0]['municipality_name']}}<br />
           <strong>District:</strong> {{profile.location[0]['district']}}
         </p>
       </div>
@@ -47,7 +47,67 @@
     </div>
 
     <div class="row mt-4 text-center">
+
       <div class="col-12">
+
+        <!-- <div class="row mt-4 text-center">
+          <div class="col-12">
+            <div class="card shadow">
+              <h3 class="mb-4">Filter Data</h3>
+
+              <div class="row">
+                <div class="col-lg-4 col-sm-12 mb-4">
+                  <h6>Select Start Date:</h6>
+                  <b-input v-model="" type="date"/>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 mb-4">
+                  <h6>Select End Date:</h6>
+                  <b-input v-model="" type="date"/>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 mb-4">
+                  <h6>Location:</h6>
+                  <multiselect
+                  v-model="location"
+                  :options="options"
+                  :multiple="true"
+                  :preserve-search="true"
+                  placeholder="Select Location"
+                  label="name"
+                  track-by="name"
+                  open-direction="bottom"
+                  :preselect-first="true"
+                  >
+                  </multiselect>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-10 col-sm-12">
+                  <h6>Select Activities:</h6>
+                  <b-form-group>
+                    <b-form-checkbox-group
+                    v-model="checkbox_selected"
+                    :options="checkbox_options"
+                    checked=true
+                    switches
+                    size="lg"
+                    ></b-form-checkbox-group>
+                  </b-form-group>
+                </div>
+
+                <div class="col-lg-2 col-sm-12">
+                  <h6>Click Here:</h6>
+                  <b-button variant="custom" block class="mb-4" @click="OverviewTable">Submit</b-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
+
         <div class="card shadow">
           <h3>Basic Data</h3>
           <b-table
@@ -138,7 +198,7 @@ export default {
     'Visualization': Visualization
   },
   computed: {
-    ...mapState(['token','profile','treatmenttable','basic_table'
+    ...mapState(['token','profile','treatmenttable','basic_table','wardstrategicdata_obj'
     ]),
 
     basic: function(){
@@ -154,7 +214,7 @@ export default {
       }else{
         return []
       }
-      
+
     },
 
   treatment: function(){
@@ -171,7 +231,26 @@ export default {
       return []
     }
 
+  },
+
+  strategic: function(){
+    if(this.$store.state.wardstrategicdata_obj.length > 0){
+      var formattedRecord2 = []
+      this.$store.state.wardstrategicdata_obj.forEach(function(rec){
+        formattedRecord2.push({
+         type: rec[0], male: rec[1], female: rec[2], child: rec[3], adult: rec[4], senior: rec[5], total: rec[6]
+       })
+      })
+      return formattedRecord2;
+
+    }else{
+      return []
+    }
+
   }
+
+
+
 
 },
 
@@ -179,24 +258,19 @@ export default {
     this.listProfile();
     this.listTreatmentTable();
     this.listBasicTable();
+    this.listWardStrategicData();
   },
 
 
   data() {
     return {
-      // username: '',
-      // password: '',
-      // text: "Login Form",
-      // available: false,
-      // show: false,
-      // errors: {'auth':''},
-      // disabledLogin: true
-      // locationChart: locationChart,
       genderbargraph: "genderbargraph",
       treatmentbargraph:"treatmentbargraph",
       uch:"uch",
       lch:"lch",
       isActive: true,
+      options:[{"name":"All Location","language":null}],
+      checkbox_options:[{"name":"pk"}],
 
       basicFields: [
         { key: 'type', label: '', tdClass: 'font-weight-bold'},
@@ -207,11 +281,6 @@ export default {
         { key: 'senior', label: 'Other Adult (>60Y)'},
         { key: 'total', label: 'Total'},
       ],
-      // basic:[
-      //   { type: this.$store.state.treatmenttable.cavities_prevented[0], male: this.$store.state.treatmenttable.cavities_prevented[1], female: this.$store.state.treatmenttable.cavities_prevented[2], child: this.$store.state.treatmenttable.cavities_prevented[3], adult: this.$store.state.treatmenttable.cavities_prevented[4], senior: this.$store.state.treatmenttable.cavities_prevented[5], total: '70'},
-      //   { type: this.$store.state.treatmenttable.contact[0], male: this.$store.state.treatmenttable.contact[1], female: this.$store.state.treatmenttable.contact[2], child: this.$store.state.treatmenttable.contact[3], adult: this.$store.state.treatmenttable.contact[4], senior: this.$store.state.treatmenttable.contact[5], total: '40'},
-
-      // ],
 
       treatmentFields: [
         { key: 'type', label: '', tdClass: 'font-weight-bold'},
@@ -222,14 +291,6 @@ export default {
         { key: 'senior', label: 'Other Adult (>60Y)'},
         { key: 'total', label: 'Total'},
       ],
-      // treatment:[
-      //   {type: 'EXO', male: '50', female: '20', child: '30', adult: '15', senior: '25', total: '70'},
-      //   {type: 'ART', male: '10', female: '30', child: '10', adult: '15', senior: '15', total: '40'},
-      //   {type: 'SEAL', male: '50', female: '20', child: '30', adult: '15', senior: '25', total: '70'},
-      //   {type: 'SDF', male: '50', female: '20', child: '30', adult: '15', senior: '25', total: '70'},
-      //   {type: 'FV', male: '50', female: '20', child: '30', adult: '15', senior: '25', total: '70'},
-
-      // ],
 
       strategicFields: [
         { key: 'type', label: '', tdClass: 'font-weight-bold'},
@@ -240,17 +301,12 @@ export default {
         { key: 'senior', label: 'Other Adult (>60Y)'},
         { key: 'total', label: 'Total'},
       ],
-      strategic:[
-        {type: 'Preventive Ratio', male: '50', female: '20', child: '30', adult: '15', senior: '25', total: '70'},
-        {type: 'Early Intervention Ratio', male: '10', female: '30', child: '10', adult: '15', senior: '15', total: '40'},
-        {type: '% Recall', male: '50', female: '20', child: '30', adult: '15', senior: '25', total: '70'},
 
-      ]
     }
   },
 
   methods:{
-    ...mapActions(['listProfile','listTreatmentTable','listBasicTable']),
+    ...mapActions(['listProfile','listTreatmentTable','listBasicTable','listWardStrategicData']),
 
 
   }

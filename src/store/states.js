@@ -22,4 +22,7 @@ export default{
     'basic_table':'',
     'wardsettingsgraph':'',
     'wardtreatmentsgraph':'',
+    "loginvisualization1":"",
+    "warduserlinegraph":[],
+    "wardstrategicdata_obj":[],
 }

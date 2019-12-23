@@ -58,7 +58,7 @@ export default{
 	setTreatmentBarVisualization(state,treatmentnargraph){
 		state.treatmentnargraph = treatmentnargraph;
 	},
-	
+
 	setTreatmentTable(state,treatmenttable){
 		state.treatmenttable = treatmenttable;
 	},
@@ -74,5 +74,16 @@ export default{
 	setWardTreatmentGraphs(state, wardtreatmentsgraph){
 		state.wardtreatmentsgraph = wardtreatmentsgraph;
 	},
+	setLoginVisualization1(state, loginvisualization1){
+		state.loginvisualization1 = loginvisualization1;
+	},
+
+	setWardUserLineGraphs(state, warduserlinegraph){
+		state.warduserlinegraph = warduserlinegraph;
+	},
+	setWardStrategicData(state, wardstrategicdata_obj){
+		state.wardstrategicdata_obj = wardstrategicdata_obj;
+	},
+
 
 }

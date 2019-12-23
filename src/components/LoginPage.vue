@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { mapState,mapMutations } from 'vuex';
+import { mapState,mapActions } from 'vuex';
 
 import LoginForm from './LoginForm';
 import LoginVisualization from './LoginPageVisualization';
@@ -93,13 +93,32 @@ export default {
     'LoginVisualization': LoginVisualization
   },
 
+  computed: {
+    ...mapState(['loginvisualization1'
+    ]),
+  },
+  created(){
+    this.listLoginVisualization1();
+  },
+
+  watch: {
+    loginvisualization1: function(){
+    if(this.loginvisualization1){
+      this.treatment_obj = this.loginvisualization1.total_encounter
+      this.contacted_obj = this.loginvisualization1.total_patient
+      this.cavities_obj = this.loginvisualization1.cavities_restored
+      this.endVal =[this.loginvisualization1.total_encounter,this.loginvisualization1.cavities_restored,this.loginvisualization1.total_patient]
+        }
+    },
+  },
+
   data() {
     return {
       delay: 100,
-      treatment_obj:500,
-      cavities_obj:1500,
-      contacted_obj:6000,
-      endVal: [500, 1500, 6000],
+      treatment_obj:"",
+      cavities_obj:"",
+      contacted_obj:"",
+      endVal: [],
       options: {
         useEasing: true,
         useGrouping: true,
@@ -114,6 +133,9 @@ export default {
       type: "pie",
     }
 
+  },
+  methods:{
+    ...mapActions(['listLoginVisualization1']),
   }
 };
 </script>

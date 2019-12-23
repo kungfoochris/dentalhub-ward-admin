@@ -17,11 +17,11 @@ export default {
   mounted: function(){
     // write a condition to check visualization has been set in state
     //  no need to pass cleanData
-    
+
   },
   computed: {
     ...mapState([
-      'genderchart','wardsettingsgraph','wardtreatmentsgraph'
+      'genderchart','wardsettingsgraph','wardtreatmentsgraph','warduserlinegraph'
     ])
   },
   watch: {
@@ -41,6 +41,12 @@ export default {
       if(this.genderchart.locationChart){
         this.createGenderChart();
       }
+    },
+
+    warduserlinegraph: function(){
+      if(this.warduserlinegraph.locationChart){
+        this.createWardUserLineChart();
+      }
     }
   },
 
@@ -48,14 +54,15 @@ export default {
     this.listGenderChart();
     this.listWardSettingGraphs();
     this.listWardTreatmentGraphs();
+    this.listWardUserLineGraphs();
     // this.listVisualizationChart();
     // this.listTreatmentBarVisualization();
     // this.listLoginVisualization();
   },
   methods:{
-    ...mapActions(['listGenderChart','listWardSettingGraphs','listWardTreatmentGraphs']),
+    ...mapActions(['listGenderChart','listWardSettingGraphs','listWardTreatmentGraphs','listWardUserLineGraphs']),
 
-    createGenderChart() { 
+    createGenderChart() {
       const ctx = document.getElementById('genderbargraph');
       // ctx.height = 300;
       const _ = new Chart(ctx, {
@@ -66,7 +73,7 @@ export default {
       });
     },
 
-    createWardSettingGraph() { 
+    createWardSettingGraph() {
       const ctx = document.getElementById('lch');
       // ctx.height = 300;
       const _ = new Chart(ctx, {
@@ -77,7 +84,7 @@ export default {
       });
     },
 
-    createTreatmentChart() { 
+    createTreatmentChart() {
       const ctx = document.getElementById('treatmentbargraph');
       // ctx.height = 300;
       const _ = new Chart(ctx, {
@@ -87,6 +94,19 @@ export default {
         options: this.wardtreatmentsgraph.locationChart.options,
       });
     },
+
+    createWardUserLineChart() {
+      const ctx = document.getElementById('uch');
+      // ctx.height = 300;
+      const _ = new Chart(ctx, {
+        // type: chartData.type,
+        type: 'line',
+        data: this.warduserlinegraph.locationChart.data,
+        options: this.warduserlinegraph.locationChart.options,
+      });
+    },
+
+
 
 
     // ExportData(){

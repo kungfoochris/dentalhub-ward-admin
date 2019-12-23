@@ -22,6 +22,7 @@ Vue.component('ICountUp', ICountUp)
 
 Vue.component('multiselect', window.VueMultiselect.default)
 
+
 Vue.component('editor', Editor);
 
 Vue.filter('formatDate', function(value) {
