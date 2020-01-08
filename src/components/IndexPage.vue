@@ -14,6 +14,45 @@
       </div>
     </div>
 
+    <div class="row mt-4 text-center">
+      <div class="col-12">
+        <div class="card shadow">
+          <h3 class="mb-3">Filter Data Table</h3>
+
+          <div class="row">
+            <div class="col-lg-6 col-sm-12 mb-3">
+              <h6>Select Start Date:</h6>
+              <b-input v-model="Start_Date" type="date"/>
+            </div>
+
+            <div class="col-lg-6 col-sm-12 mb-3">
+              <h6>Select End Date:</h6>
+              <b-input v-model="End_Date" type="date"/>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-10 col-sm-12">
+              <h6>Select Activities:</h6>
+              <b-form-group>
+                <b-form-checkbox-group
+                v-model="checkbox_selected"
+                :options="checkbox_options"
+                switches
+                size="lg"
+                ></b-form-checkbox-group>
+              </b-form-group>
+            </div>
+
+            <div class="col-lg-2 col-sm-12">
+              <h6>Click Here:</h6>
+              <b-button variant="custom" block class="mb-4">Submit</b-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row mt-4">
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
@@ -271,6 +310,10 @@ export default {
       isActive: true,
       options:[{"name":"All Location","language":null}],
       checkbox_options:[{"name":"pk"}],
+      checkbox_selected: [], // Must be an array reference!
+      checkbox_options: [],
+      Start_Date:"",
+      End_Date:"",
 
       basicFields: [
         { key: 'type', label: '', tdClass: 'font-weight-bold'},
