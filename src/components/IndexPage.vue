@@ -38,6 +38,7 @@
                 <b-form-checkbox-group
                 v-model="checkbox_selected"
                 :options="checkbox_options"
+                checked=true
                 switches
                 size="lg"
                 ></b-form-checkbox-group>
@@ -45,13 +46,43 @@
             </div>
 
             <div class="col-lg-2 col-sm-12">
-              <h6>Click Here:</h6>
-              <b-button variant="custom" block class="mb-4">Submit</b-button>
+              <b-button variant="custom" block class="mb-4" @click="FilterForm">Submit</b-button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
+    <b-toast id="error-toast" variant="warning" solid append-toast toaster="b-toaster-bottom-full">
+      <div slot="toast-title" class="d-flex flex-grow-1 align-items-baseline">
+        <strong class="mr-auto">Overview filter required error</strong>
+      </div>
+      <div v-if="errors.Start_Date">
+        <p>{{ errors.Start_Date }}</p>
+      </div>
+      <div v-if="errors.End_Date">
+        <p>{{ errors.End_Date }}</p>
+      </div>
+
+      <div v-if="errors.checkbox_selected">
+        <p>{{ errors.checkbox_selected }}</p>
+      </div>
+
+      <div v-if="message.length>0">
+        <p>{{this.message }}</p>
+      </div>
+
+
+    </b-toast>
+
+    <b-toast id="success-toast" variant="custom-success" solid append-toast toaster="b-toaster-bottom-full">
+      <div slot="toast-title" class="d-flex flex-grow-1 align-items-baseline">
+        <strong class="mr-auto">Filtered success</strong>
+      </div>
+        Data is Successfully  Filtered
+    </b-toast>
+
 
     <div class="row mt-4">
       <div class="col-lg-4 col-sm-12">
@@ -237,7 +268,7 @@ export default {
     'Visualization': Visualization
   },
   computed: {
-    ...mapState(['token','profile','treatmenttable','basic_table','wardstrategicdata_obj'
+    ...mapState(['errormessage','successmessage','message','activities_obj','token','profile','treatmenttable','basic_table','wardstrategicdata_obj'
     ]),
 
     basic: function(){
@@ -298,6 +329,8 @@ export default {
     this.listTreatmentTable();
     this.listBasicTable();
     this.listWardStrategicData();
+    this.listActivitie().then(() => {
+      this.checkbox_optionsupdate();})
   },
 
 
@@ -309,11 +342,12 @@ export default {
       lch:"lch",
       isActive: true,
       options:[{"name":"All Location","language":null}],
-      checkbox_options:[{"name":"pk"}],
       checkbox_selected: [], // Must be an array reference!
       checkbox_options: [],
       Start_Date:"",
       End_Date:"",
+      errors:[],
+
 
       basicFields: [
         { key: 'type', label: '', tdClass: 'font-weight-bold'},
@@ -349,7 +383,61 @@ export default {
   },
 
   methods:{
-    ...mapActions(['listProfile','listTreatmentTable','listBasicTable','listWardStrategicData']),
+    ...mapActions(['listActivitie','listProfile','listTreatmentTable','listBasicTable','listWardStrategicData']),
+
+FilterForm(){
+  this.errors=[]
+  if(this.Start_Date==""){
+    this.errors['Start_Date']="Start_Date required."
+    this.showdataget = true
+    this.$bvToast.show('error-toast');
+  }else if(this.End_Date ==""){
+    this.errors['End_Date']="End_Date required."
+    this.showdataget = true
+    this.$bvToast.show('error-toast');
+  }else if (this.checkbox_selected.length<0){
+    this.errors['checkbox_selected']="Select Activity."
+    this.showdataget = true
+    this.$bvToast.show('error-toast');
+  }else(
+    this.$store.dispatch("CreateGenderChart",{'start_date':this.Start_Date,'end_date':this.End_Date,"activities":this.checkbox_selected}),
+    this.$store.dispatch("CreateWardSettingGraphs",{'start_date':this.Start_Date,'end_date':this.End_Date,"activities":this.checkbox_selected}),
+    this.$store.dispatch("CreateWardTreatmentGraphs",{'start_date':this.Start_Date,'end_date':this.End_Date,"activities":this.checkbox_selected}),
+    this.$store.dispatch("CreateTreatmentTable",{'start_date':this.Start_Date,'end_date':this.End_Date,"activities":this.checkbox_selected}),
+    this.$store.dispatch("CreateBasicTable",{'start_date':this.Start_Date,'end_date':this.End_Date,"activities":this.checkbox_selected}),
+    this.$store.dispatch("CreateWardStrategicData",{'start_date':this.Start_Date,'end_date':this.End_Date,"activities":this.checkbox_selected}).then(() => {
+      if(this.errormessage =='errormessage'){
+        this.$bvToast.show('error-toast');
+      }else if(this.successmessage=='success'){
+        this.message = "",
+        this.$bvToast.show('success-toast');
+      }
+
+    })
+  )
+
+
+
+
+
+
+
+},
+
+    checkbox_optionsupdate(){
+      var activities_data=[]
+      var activities_data1=[]
+      if (this.activities_obj.length>0){
+        this.activities_obj.forEach(function(activity){
+            activities_data.push({'text':activity.name,'value':activity.id})
+            activities_data1.push(activity.id)
+
+        })
+        this.checkbox_options = activities_data
+        this.checkbox_selected = activities_data1
+      }
+
+    },
 
 
   }

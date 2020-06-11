@@ -85,5 +85,9 @@ export default{
 		state.wardstrategicdata_obj = wardstrategicdata_obj;
 	},
 
+	setActivities(state, activities_obj){
+		state.activities_obj = activities_obj;
+	},
+
 
 }

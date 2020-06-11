@@ -96,9 +96,9 @@ export default {
         this.$bvToast.show('error-toast');
       }
       else{
-        axios.post('http://app.abhiyantrik.com:6061/api/v1/checkwarduser',{'username':this.$data.username}).then(response=>{
+        axios.post('http://18.139.218.40:6061/api/v1/checkwarduser',{'username':this.$data.username}).then(response=>{
           var formData = {'username': this.$data.username, 'password': this.$data.password}
-          axios.post('http://app.abhiyantrik.com:6061/api/v1/token',formData)
+          axios.post('http://18.139.218.40:6061/api/v1/token',formData)
           .then(response => {
             window.localStorage.setItem("token", response.data.token);
             this.setToken(response.data.token);

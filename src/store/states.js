@@ -25,4 +25,5 @@ export default{
     "loginvisualization1":"",
     "warduserlinegraph":[],
     "wardstrategicdata_obj":[],
+    "activities_obj":[],
 }

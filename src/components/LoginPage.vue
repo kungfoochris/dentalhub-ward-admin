@@ -84,8 +84,6 @@ import LoginForm from './LoginForm';
 import LoginVisualization from './LoginPageVisualization';
 import locationChart from '../js/locationchart.js';
 
-const axios = require('axios');
-
 export default {
   name: "LoginPage",
   components:{

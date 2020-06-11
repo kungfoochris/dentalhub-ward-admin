@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import Chart from 'chart.js';
 import { mapState,mapActions } from 'vuex';
 export default {
   name: "Visualization",
@@ -65,7 +66,7 @@ export default {
     createGenderChart() {
       const ctx = document.getElementById('genderbargraph');
       // ctx.height = 300;
-      const _ = new Chart(ctx, {
+      new Chart(ctx, {
         // type: chartData.type,
         type: 'bar',
         data: this.genderchart.locationChart.data,
@@ -76,7 +77,7 @@ export default {
     createWardSettingGraph() {
       const ctx = document.getElementById('lch');
       // ctx.height = 300;
-      const _ = new Chart(ctx, {
+      new Chart(ctx, {
         // type: chartData.type,
         type: 'pie',
         data: this.wardsettingsgraph.locationChart.data,
@@ -87,7 +88,7 @@ export default {
     createTreatmentChart() {
       const ctx = document.getElementById('treatmentbargraph');
       // ctx.height = 300;
-      const _ = new Chart(ctx, {
+      new Chart(ctx, {
         // type: chartData.type,
         type: 'bar',
         data: this.wardtreatmentsgraph.locationChart.data,
@@ -98,7 +99,7 @@ export default {
     createWardUserLineChart() {
       const ctx = document.getElementById('uch');
       // ctx.height = 300;
-      const _ = new Chart(ctx, {
+      new Chart(ctx, {
         // type: chartData.type,
         type: 'line',
         data: this.warduserlinegraph.locationChart.data,
