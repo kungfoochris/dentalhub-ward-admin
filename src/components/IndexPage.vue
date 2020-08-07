@@ -14,6 +14,9 @@
       </div>
     </div>
 
+  <!-- {{ currentDate.day}} / {{ currentDate.month }} / {{ currentDate.year }} -->
+
+
     <div class="row mt-4 text-center">
       <div class="col-12">
         <div class="card shadow">
@@ -87,21 +90,21 @@
     <div class="row mt-4">
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
-          <h3 class="mb-3">Bar graph of basic data by age and gender</h3>
+          <h3 class="mb-3">Contacts by Age & Gender</h3>
           <Visualization :tag="genderbargraph"></Visualization>
         </div>
       </div>
 
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
-          <h3 class="mb-3">Bar graph of treatment data</h3>
+          <h3 class="mb-3">Treatments by Age & Gender</h3>
           <Visualization :tag="treatmentbargraph"></Visualization>
         </div>
       </div>
 
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
-          <h3 class="mb-3">Pie chart of contacts by settings</h3>
+          <h3 class="mb-3">Contacts by Settings</h3>
           <Visualization :tag="lch"></Visualization>
         </div>
       </div>
@@ -110,7 +113,7 @@
     <div class="row mt-4">
       <div class="col-12">
         <div class="card shadow">
-          <h3 class="mb-3">Line graph</h3>
+          <h3 class="mb-3">Contacts Over Time</h3>
           <Visualization :tag="uch"></Visualization>
         </div>
       </div>
@@ -204,7 +207,7 @@
     <div class="row mt-4 text-center">
       <div class="col-12">
         <div class="card shadow">
-          <h3>Treatments</h3>
+          <h3>Overview</h3>
           <b-table
           id="user-table"
           show-empty
@@ -332,7 +335,10 @@ export default {
     this.listActivitie().then(() => {
       this.checkbox_optionsupdate();})
   },
-
+  
+  mounted() {
+    this.current_date()
+  },
 
   data() {
     return {
@@ -345,8 +351,13 @@ export default {
       checkbox_selected: [], // Must be an array reference!
       checkbox_options: [],
       Start_Date:"",
-      End_Date:"",
+      End_Date:"10/10/2020",
       errors:[],
+      currentDate: {
+        day: '',
+        month: '',
+        year: '',
+      },
 
 
       basicFields: [
@@ -384,6 +395,17 @@ export default {
 
   methods:{
     ...mapActions(['listActivitie','listProfile','listTreatmentTable','listBasicTable','listWardStrategicData']),
+
+    current_date() {
+      var currentDate = new Date();
+      var day = currentDate.getDate();
+      var month = currentDate.getMonth();
+      var year = currentDate.getFullYear(); 
+      console.log(currentDate);
+      this.currentDate.day = day;
+      this.currentDate.month = month;
+      this.currentDate.year = year;
+    },
 
 FilterForm(){
   this.errors=[]
