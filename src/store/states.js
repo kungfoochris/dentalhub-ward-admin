@@ -26,4 +26,5 @@ export default{
     "warduserlinegraph":[],
     "wardstrategicdata_obj":[],
     "activities_obj":[],
+    "date_obj":"",
 }

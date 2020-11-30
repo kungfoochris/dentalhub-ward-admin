@@ -20,17 +20,17 @@
     <div class="row mt-4 text-center">
       <div class="col-12">
         <div class="card shadow">
-          <h3 class="mb-3">Filter Data Table</h3>
+          <h3 class="mb-3">1.0 Filter Data Table</h3>
 
           <div class="row">
             <div class="col-lg-6 col-sm-12 mb-3">
               <h6>Select Start Date:</h6>
-              <b-input v-model="Start_Date" type="date"/>
+              <b-input v-model="date_obj.last_30_days" type="date"/>
             </div>
 
             <div class="col-lg-6 col-sm-12 mb-3">
               <h6>Select End Date:</h6>
-              <b-input v-model="End_Date" type="date"/>
+              <b-input v-model="date_obj.today_date" type="date"/>
             </div>
           </div>
 
@@ -90,21 +90,21 @@
     <div class="row mt-4">
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
-          <h3 class="mb-3">Contacts by Age & Gender</h3>
+          <h3 class="mb-3">10.2 Contacts by Age & Gender</h3>
           <Visualization :tag="genderbargraph"></Visualization>
         </div>
       </div>
 
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
-          <h3 class="mb-3">Treatments by Age & Gender</h3>
+          <h3 class="mb-3">10.3 Treatments by Age & Gender</h3>
           <Visualization :tag="treatmentbargraph"></Visualization>
         </div>
       </div>
 
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
-          <h3 class="mb-3">Contacts by Settings</h3>
+          <h3 class="mb-3">10.4 Contacts by Setting</h3>
           <Visualization :tag="lch"></Visualization>
         </div>
       </div>
@@ -113,7 +113,7 @@
     <div class="row mt-4">
       <div class="col-12">
         <div class="card shadow">
-          <h3 class="mb-3">Contacts Over Time</h3>
+          <h3 class="mb-3">10.5 Contacts Over Time</h3>
           <Visualization :tag="uch"></Visualization>
         </div>
       </div>
@@ -271,7 +271,7 @@ export default {
     'Visualization': Visualization
   },
   computed: {
-    ...mapState(['errormessage','successmessage','message','activities_obj','token','profile','treatmenttable','basic_table','wardstrategicdata_obj'
+    ...mapState(['date_obj','errormessage','successmessage','message','activities_obj','token','profile','treatmenttable','basic_table','wardstrategicdata_obj'
     ]),
 
     basic: function(){
@@ -329,13 +329,14 @@ export default {
 
   created(){
     this.listProfile();
+    this.listDate();
     this.listTreatmentTable();
     this.listBasicTable();
     this.listWardStrategicData();
     this.listActivitie().then(() => {
       this.checkbox_optionsupdate();})
   },
-  
+
   mounted() {
     this.current_date()
   },
@@ -394,13 +395,13 @@ export default {
   },
 
   methods:{
-    ...mapActions(['listActivitie','listProfile','listTreatmentTable','listBasicTable','listWardStrategicData']),
+    ...mapActions(['listDate','listActivitie','listProfile','listTreatmentTable','listBasicTable','listWardStrategicData']),
 
     current_date() {
       var currentDate = new Date();
       var day = currentDate.getDate();
       var month = currentDate.getMonth();
-      var year = currentDate.getFullYear(); 
+      var year = currentDate.getFullYear();
       console.log(currentDate);
       this.currentDate.day = day;
       this.currentDate.month = month;

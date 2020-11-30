@@ -89,5 +89,11 @@ export default{
 		state.activities_obj = activities_obj;
 	},
 
+	setDate(state, date_obj){
+		state.date_obj = date_obj;
+	},
+
+
+
 
 }
