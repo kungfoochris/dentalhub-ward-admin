@@ -20,7 +20,7 @@
     <div class="row mt-4 text-center">
       <div class="col-12">
         <div class="card shadow">
-          <h3 class="mb-3">1.0 Filter Data Table</h3>
+          <h3 class="mb-3">Filter Data Table</h3>
 
           <div class="row">
             <div class="col-lg-6 col-sm-12 mb-3">
@@ -85,6 +85,30 @@
       </div>
         Data is Successfully  Filtered
     </b-toast>
+
+    <div class="row mt-4 text-center">
+      <div class="col-12">
+        <div class="card shadow">
+          <h3>10.1 Overview</h3>
+          <b-table
+          id="user-table"
+          show-empty
+          :items="treatment"
+          :fields="treatmentFields"
+          bordered
+          responsive
+          hover
+          >
+              <!-- <template slot="S.N." slot-scope="data">
+              {{ data.index + 1 + '.' }}
+            </template> -->
+          </b-table>
+          <div class="row pr-4">
+            <small class="ml-auto"><a href=""><i class="fas fa-file-export mr-1"></i>Export Now</a></small>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
     <div class="row mt-4">
@@ -188,31 +212,6 @@
           show-empty
           :items="basic"
           :fields="basicFields"
-          bordered
-          responsive
-          hover
-          >
-              <!-- <template slot="S.N." slot-scope="data">
-              {{ data.index + 1 + '.' }}
-            </template> -->
-          </b-table>
-          <div class="row pr-4">
-            <small class="ml-auto"><a href=""><i class="fas fa-file-export mr-1"></i>Export Now</a></small>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="row mt-4 text-center">
-      <div class="col-12">
-        <div class="card shadow">
-          <h3>Overview</h3>
-          <b-table
-          id="user-table"
-          show-empty
-          :items="treatment"
-          :fields="treatmentFields"
           bordered
           responsive
           hover
@@ -402,7 +401,6 @@ export default {
       var day = currentDate.getDate();
       var month = currentDate.getMonth();
       var year = currentDate.getFullYear();
-      console.log(currentDate);
       this.currentDate.day = day;
       this.currentDate.month = month;
       this.currentDate.year = year;
