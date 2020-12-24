@@ -14,6 +14,9 @@
       </div>
     </div>
 
+  <!-- {{ currentDate.day}} / {{ currentDate.month }} / {{ currentDate.year }} -->
+
+
     <div class="row mt-4 text-center">
       <div class="col-12">
         <div class="card shadow">
@@ -22,12 +25,12 @@
           <div class="row">
             <div class="col-lg-6 col-sm-12 mb-3">
               <h6>Select Start Date:</h6>
-              <b-input v-model="Start_Date" type="date"/>
+              <b-input v-model="date_obj.last_30_days" type="date"/>
             </div>
 
             <div class="col-lg-6 col-sm-12 mb-3">
               <h6>Select End Date:</h6>
-              <b-input v-model="End_Date" type="date"/>
+              <b-input v-model="date_obj.today_date" type="date"/>
             </div>
           </div>
 
@@ -83,25 +86,49 @@
         Data is Successfully  Filtered
     </b-toast>
 
+    <div class="row mt-4 text-center">
+      <div class="col-12">
+        <div class="card shadow">
+          <h3>10.1 Overview</h3>
+          <b-table
+          id="user-table"
+          show-empty
+          :items="treatment"
+          :fields="treatmentFields"
+          bordered
+          responsive
+          hover
+          >
+              <!-- <template slot="S.N." slot-scope="data">
+              {{ data.index + 1 + '.' }}
+            </template> -->
+          </b-table>
+          <div class="row pr-4">
+            <small class="ml-auto"><a href=""><i class="fas fa-file-export mr-1"></i>Export Now</a></small>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div class="row mt-4">
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
-          <h3 class="mb-3">Bar graph of basic data by age and gender</h3>
+          <h3 class="mb-3">10.2 Contacts by Age & Gender</h3>
           <Visualization :tag="genderbargraph"></Visualization>
         </div>
       </div>
 
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
-          <h3 class="mb-3">Bar graph of treatment data</h3>
+          <h3 class="mb-3">10.3 Treatments by Age & Gender</h3>
           <Visualization :tag="treatmentbargraph"></Visualization>
         </div>
       </div>
 
       <div class="col-lg-4 col-sm-12">
         <div class="card shadow">
-          <h3 class="mb-3">Pie chart of contacts by settings</h3>
+          <h3 class="mb-3">10.4 Contacts by Setting</h3>
           <Visualization :tag="lch"></Visualization>
         </div>
       </div>
@@ -110,7 +137,7 @@
     <div class="row mt-4">
       <div class="col-12">
         <div class="card shadow">
-          <h3 class="mb-3">Line graph</h3>
+          <h3 class="mb-3">10.5 Contacts Over Time</h3>
           <Visualization :tag="uch"></Visualization>
         </div>
       </div>
@@ -200,31 +227,6 @@
       </div>
     </div>
 
-
-    <div class="row mt-4 text-center">
-      <div class="col-12">
-        <div class="card shadow">
-          <h3>Treatments</h3>
-          <b-table
-          id="user-table"
-          show-empty
-          :items="treatment"
-          :fields="treatmentFields"
-          bordered
-          responsive
-          hover
-          >
-              <!-- <template slot="S.N." slot-scope="data">
-              {{ data.index + 1 + '.' }}
-            </template> -->
-          </b-table>
-          <div class="row pr-4">
-            <small class="ml-auto"><a href=""><i class="fas fa-file-export mr-1"></i>Export Now</a></small>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="row mt-4 text-center">
       <div class="col-12">
         <div class="card shadow">
@@ -268,7 +270,7 @@ export default {
     'Visualization': Visualization
   },
   computed: {
-    ...mapState(['errormessage','successmessage','message','activities_obj','token','profile','treatmenttable','basic_table','wardstrategicdata_obj'
+    ...mapState(['date_obj','errormessage','successmessage','message','activities_obj','token','profile','treatmenttable','basic_table','wardstrategicdata_obj'
     ]),
 
     basic: function(){
@@ -326,6 +328,7 @@ export default {
 
   created(){
     this.listProfile();
+    this.listDate();
     this.listTreatmentTable();
     this.listBasicTable();
     this.listWardStrategicData();
@@ -333,6 +336,9 @@ export default {
       this.checkbox_optionsupdate();})
   },
 
+  mounted() {
+    this.current_date()
+  },
 
   data() {
     return {
@@ -345,8 +351,13 @@ export default {
       checkbox_selected: [], // Must be an array reference!
       checkbox_options: [],
       Start_Date:"",
-      End_Date:"",
+      End_Date:"10/10/2020",
       errors:[],
+      currentDate: {
+        day: '',
+        month: '',
+        year: '',
+      },
 
 
       basicFields: [
@@ -383,7 +394,17 @@ export default {
   },
 
   methods:{
-    ...mapActions(['listActivitie','listProfile','listTreatmentTable','listBasicTable','listWardStrategicData']),
+    ...mapActions(['listDate','listActivitie','listProfile','listTreatmentTable','listBasicTable','listWardStrategicData']),
+
+    current_date() {
+      var currentDate = new Date();
+      var day = currentDate.getDate();
+      var month = currentDate.getMonth();
+      var year = currentDate.getFullYear();
+      this.currentDate.day = day;
+      this.currentDate.month = month;
+      this.currentDate.year = year;
+    },
 
 FilterForm(){
   this.errors=[]
